@@ -19,22 +19,28 @@ class OfertasController extends Controller
 
     public function store(Request $request)
     {
-        $validator =  Validator::make($request->all(), [
-            'nombre' => 'required|string|max:45|unique:ofertas',
-            'estado' => 'required|integer|min:0|max:1',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(["status" => "error", "message" => $validator->errors()], 422);
+        try {
+            $validator =  Validator::make($request->all(), [
+                'nombre' => 'required|string|max:45|unique:ofertas',
+                'estado' => 'required|integer|min:0|max:1',
+            ]);
+    
+            if ($validator->fails()) {
+                return response()->json(["status" => "error", "message" => $validator->errors()], 422);
+            }
+    
+            $data = [
+                'nombre'=> trim($request->nombre),
+                'estado' => $request->estado
+            ];
+    
+            Ofertas::create($data);
+            return response()->json(["status" => "success"]);
+            
+        } catch (\Throwable $th) {
+            return response()->json(["status" => "error", "message" => $th->getMessage()]);
         }
-
-        $data = [
-            'nombre'=> trim($request->nombre),
-            'estado' => $request->estado
-        ];
-
-        Ofertas::create($data);
-        return response()->json(["status" => "success"]);
+        
     }
 
     public function show($id)

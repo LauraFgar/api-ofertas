@@ -11,8 +11,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::apiResource('ofertas', App\Http\Controllers\OfertasController::class)
     ->only(['index', 'show', 'store']);
 
-    Route::apiResource('usuarios', App\Http\Controllers\UsuariosController::class);
-    // ->only(['store']);
+    Route::apiResource('usuarios', App\Http\Controllers\UsuariosController::class)
+    ->only(['index', 'show', 'store']);
 
 });
 
