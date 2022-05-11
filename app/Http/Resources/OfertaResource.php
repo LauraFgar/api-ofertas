@@ -15,11 +15,15 @@ class OfertaResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            "id" => $this->id,
-            "nombre" => $this->nombre,
-            "estado" => ($this->estado == 1) ? 'activa' : 'inactiva',
-            "usuarios" => UsuarioResource::collection($this->users)
-        ];
+        if(isset($this->id)){
+            return [
+                "id" => $this->id,
+                "nombre" => $this->nombre,
+                "estado" => ($this->estado == 1) ? 'activa' : 'inactiva',
+                "usuarios" => UsuarioResource::collection($this->users)
+            ];
+        }
+
+        return [];
     }
 }

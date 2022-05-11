@@ -19,7 +19,7 @@ class CreateUsuariosTable extends Migration
             $table->string('email')->unique();
             $table->string('tipo_documento');
             $table->string('numero_documento')->unique();
-            $table->foreignId('ofertas_id')->references('id')->on('ofertas');
+            $table->string('ofertas_id')->nullable();
             $table->timestamps();
         });
     }

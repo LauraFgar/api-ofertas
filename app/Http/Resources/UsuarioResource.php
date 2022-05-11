@@ -14,14 +14,19 @@ class UsuarioResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            "id" => $this->id,
-            "nombre" => $this->nombre,
-            "email" => $this->email,
-            "documento" => [
-                "tipo" => ($this->tipo_documento == 1) ? 'Cédula de ciudadanía' : 'Tarjeta de identidad',
-                "numero" => $this->numero_documento,
-            ]
-        ];
+        if(isset($this->id)){
+            return [
+                "id" => $this->id,
+                "nombre" => $this->nombre,
+                "email" => $this->email,
+                "documento" => [
+                    "id" => $this->tipo_documento,
+                    "tipo" => ($this->tipo_documento == 1) ? 'Cédula de ciudadanía' : 'Tarjeta de identidad',
+                    "numero" => $this->numero_documento,
+                ]
+            ];
+        }
+
+        return [];
     }
 }
